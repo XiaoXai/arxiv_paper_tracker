@@ -104,8 +104,8 @@ def check_topic_relevance(paper):
         不相关
         
         格式示例：
-        优先级1 - 研究了Navier-Stokes方程的存在性
-        优先级2 - 涉及椭圆方程的正则性理论
+        优先级1 - 研究了多智能体博弈问题
+        优先级2 - 涉及不确定性的处理
         不相关
         """
         
@@ -165,7 +165,7 @@ def translate_abstract_with_deepseek(paper):
         response = openai.ChatCompletion.create(
             model="deepseek-chat",
             messages=[
-                {"role": "system", "content": "你是一位专业的学术翻译专家，擅长数学和物理领域的翻译。"},
+                {"role": "system", "content": "你是一位专业的学术翻译专家，擅长控制领域和人工智能领域的翻译。"},
                 {"role": "user", "content": prompt},
             ]
         )
@@ -248,10 +248,11 @@ def analyze_paper_with_deepseek(pdf_path, paper):
         发布时间: {paper.published}
         
         请分析这篇研究论文并提供：
-        1. 研究对象和背景: 给出论文描述的方程或系统, 如果在Introduction的部分给出了方程组的数学公式, 请一并给出 (用行间公式表示); 如果文章研究的是某一种现象的验证, 请描述现象.
-        2. 主要定理或主要结果: 给出文章证明的主要定理.
+        1. 研究对象和背景: 给出论文的问题背景, 给出论文要解决的具体问题，问题是一种新型的背景还是以往问题的叠加
+        2. 主要定理或主要结果: 给出文章证明的主要定理，并介绍证明过程的思路.
         3. 研究方法, 具体采用的技术, 工具
         4. 与之前工作的比较: 文章是否声称做出了什么突破或改进? 如果有，请描述.
+        5. 客观指出研究的主要局限性和不足，提出具体的改进方向和扩展建议，分析未来发展趋势和挑战.
         
         请使用中文回答，并以Markdown格式 (包含数学公式), 分自然段格式输出。
         """
