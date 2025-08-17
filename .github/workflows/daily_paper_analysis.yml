@@ -52,8 +52,8 @@ jobs:
         MAX_PAPERS: ${{ vars.MAX_PAPERS || '3' }}
         SEARCH_DAYS: ${{ vars.SEARCH_DAYS || '7' }}
         # 主题过滤配置
-        PRIORITY_TOPICS: ${{ vars.PRIORITY_TOPICS || 'Navier-Stokes方程|Euler方程|湍流' }}
-        SECONDARY_TOPICS: ${{ vars.SECONDARY_TOPICS || '色散偏微分方程|调和分析|极大算子' }}
+        PRIORITY_TOPICS: ${{ vars.PRIORITY_TOPICS || '多智能体|博弈|鲁棒' }}
+        SECONDARY_TOPICS: ${{ vars.SECONDARY_TOPICS || '辨识|自适应' }}
         # API调用延时配置
         PRIORITY_ANALYSIS_DELAY: ${{ vars.PRIORITY_ANALYSIS_DELAY || '3' }}
         SECONDARY_ANALYSIS_DELAY: ${{ vars.SECONDARY_ANALYSIS_DELAY || '2' }}
