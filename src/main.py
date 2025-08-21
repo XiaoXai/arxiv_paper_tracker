@@ -246,7 +246,8 @@ def analyze_paper_with_deepseek(pdf_path, paper):
         作者: {', '.join(author_names)}
         类别: {', '.join(paper.categories)}
         发布时间: {paper.published}
-        
+
+      
         请分析这篇研究论文并提供：
         1. 研究对象和背景: 给出论文的问题背景, 给出论文要解决的具体问题，问题是一种新型的背景还是以往问题的叠加
         2. 主要定理或主要结果: 给出文章证明的主要定理，并介绍证明过程的思路.
@@ -261,7 +262,7 @@ def analyze_paper_with_deepseek(pdf_path, paper):
         response = openai.ChatCompletion.create(
             model="deepseek-chat",
             messages=[
-                {"role": "system", "content": "你是一位专门总结和分析学术论文的研究助手。请使用中文回复。"},
+                {"role": "system", "content": "你是一位控制领域教授，发表多篇高水平论文，也擅长总结和分析学术论文，请客观严谨。请使用中文回复。"},
                 {"role": "user", "content": prompt},
             ]
         )
