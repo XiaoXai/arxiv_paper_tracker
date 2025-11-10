@@ -45,7 +45,7 @@ SEARCH_DAYS = int(os.getenv("SEARCH_DAYS", "5"))
 # 主题过滤列表从环境变量读取
 default_priority_topics = [
     "多智能体系统控制",
-    "多智能体博弈",
+    "多智能体博弈控制",
     "黑盒优化", 
     "全局优化",
     "容错控制",
@@ -97,7 +97,6 @@ def check_topic_relevance(paper):
         {chr(10).join([f"- {topic}" for topic in SECONDARY_TOPICS])}
         
         请判断这篇论文是否与上述主题相关，并指定优先级。
-        请注意，如果该论文是LLM、大模型、多智能体强化学习领域的相关文章，则直接判断为不相关。
         
         请只回答以下格式之一：
         优先级1 - 简述原因（不超过20字）
@@ -105,7 +104,7 @@ def check_topic_relevance(paper):
         不相关
         
         格式示例：
-        优先级1 - 研究了多智能体博弈问题
+        优先级1 - 研究了多智能体博弈控制问题
         优先级2 - 涉及不确定性的处理
         不相关
         """
