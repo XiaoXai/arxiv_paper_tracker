@@ -49,7 +49,7 @@ default_priority_topics = [
     "黑盒优化", 
     "全局优化",
     "容错控制",
-    "不确定性"
+    "Interactive"
 ]
 
 default_secondary_topics = [
