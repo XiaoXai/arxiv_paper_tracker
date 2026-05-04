@@ -87,22 +87,22 @@ CATEGORIES = [cat.strip() for cat in os.getenv("ARXIV_CATEGORIES", "math.AP").sp
 MAX_PAPERS = int(os.getenv("MAX_PAPERS", "50"))
 SEARCH_DAYS = int(os.getenv("SEARCH_DAYS", "3"))
 
-default_priority_topics = [
-    "流体力学中偏微分方程的数学理论",
-    "Navier-Stokes方程",
-    "Euler方程",
-    "Prandtl方程",
-    "湍流",
-    "涡度",
-]
 
-default_secondary_topics = [
-    "色散偏微分方程的数学理论",
-    "双曲偏微分方程的数学理论",
-    "调和分析",
-    "极大算子",
-    "椭圆偏微分方程",
-    "抛物偏微分方程",
+PRIORITY_TOPICS = [
+    "多智能体博弈与协同控制",
+    "分布式控制与估计",
+    "容错控制与故障检测",
+    "安全控制（如 CBF、鲁棒 MPC）",
+    "鲁棒 / 自适应 / 非线性控制",
+    "分布式优化与在线学习",
+]
+SECONDARY_TOPICS = [
+    "自动驾驶决策规划与控制",
+    "运动规划与轨迹优化",
+    "黑盒优化 / 贝叶斯优化 / 无梯度优化",
+    "信息几何优化",
+    "最优控制与模型预测控制",
+    "多机器人系统",
 ]
 
 PRIORITY_TOPICS = os.getenv("PRIORITY_TOPICS", "|".join(default_priority_topics)).split("|")
