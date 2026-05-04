@@ -79,11 +79,9 @@ def process_single_paper_task(paper, index, total, thinking_mode=None):
             return 2, (paper, translation)
             
         else:
-            logger.info(f"不相关论文: {paper.title}")
-            
-            time.sleep(SECONDARY_ANALYSIS_DELAY)
-            title_translation = translate_abstract_with_deepseek(paper, translate_title_only=True)
-            return 0, (paper, reason, title_translation)
+            logger.info(f"跳过不相关论文: {paper.title}")
+            return -1, None
+
     except Exception as e:
         logger.error(f"处理论文出错 {paper.title}: {str(e)}")
         return -1, None
@@ -227,7 +225,7 @@ def main():
     # 处理每篇论文
     priority_analyses = []  # 重点关注论文的完整分析
     secondary_analyses = [] # 了解领域论文的摘要翻译
-    irrelevant_papers = []  # 不相关论文的基本信息
+    
     
     logger.info(f"使用 {MAX_THREADS} 个线程并行处理论文...")
     
@@ -244,18 +242,17 @@ def main():
                     priority_analyses.append(data)
                 elif p_type == 2:
                     secondary_analyses.append(data)
-                elif p_type == 0:
-                    irrelevant_papers.append(data)
+
             except Exception as e:
                 logger.error(f"获取线程执行结果出错: {str(e)}")
     
     priority_count = len(priority_analyses)
     secondary_count = len(secondary_analyses)
-    irrelevant_count = len(irrelevant_papers)
+
     
-    logger.info(f"处理完成 - 重点关注: {priority_count}篇, 了解领域: {secondary_count}篇, 不相关: {irrelevant_count}篇")
+    logger.info(f"处理完成 - 重点关注: {priority_count}篇, 了解领域: {secondary_count}篇")
     
-    if not priority_analyses and not secondary_analyses and not irrelevant_papers:
+    if not priority_analyses and not secondary_analyses:
         logger.info("没有找到任何论文，不发送邮件。")
         return
     
@@ -266,10 +263,10 @@ def main():
     priority_analyses_clean = [(data[0], data[1], data[3] if len(data) > 3 else {}) for data in priority_analyses]
     
     # 将分析结果写入带时间戳的.md文件
-    result_file = write_to_conclusion(priority_analyses_clean, secondary_analyses, irrelevant_papers)
+    result_file = write_to_conclusion(priority_analyses_clean, secondary_analyses, [])
     
     # 发送邮件，包含附件
-    email_content = format_email_content(priority_analyses_clean, secondary_analyses, irrelevant_papers)
+    email_content = format_email_content(priority_analyses_clean, secondary_analyses, [])
     email_success = send_email(email_content, attachment_path=result_file)
     
     if email_success:
