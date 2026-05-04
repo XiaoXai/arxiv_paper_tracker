@@ -122,10 +122,10 @@ STRUCTURED_MODE_MAP = {
 
 PROVIDER_CONFIG = {
     "deepseek": {
-        "base_url": "https://api.deepseek.com/v1",
+        "base_url": "https://api.deepseek.com",
         "api_key": DEEPSEEK_API_KEY,
         "thinking_support": "model",
-        "default_thinking_model": "deepseek-reasoner",
+        "default_thinking_model": "deepseek-v4-pro",
         "structured_mode": "json",
         "litellm_provider": "openai",
     },
