@@ -83,7 +83,7 @@ LOG_FILE = os.getenv("LOG_FILE", "arxiv_tracker.log")
 LOG_MAX_BYTES = int(os.getenv("LOG_MAX_BYTES", "5242880"))
 LOG_BACKUP_COUNT = int(os.getenv("LOG_BACKUP_COUNT", "5"))
 
-CATEGORIES = [cat.strip() for cat in os.getenv("ARXIV_CATEGORIES", "eess.SY,cs.RO,cs.AI,math.OC,cs.LG").split(",") if cat.strip()]
+CATEGORIES = [cat.strip() for cat in os.getenv("ARXIV_CATEGORIES", "eess.SY, cs.RO, math.OC").split(",") if cat.strip()]
 MAX_PAPERS = int(os.getenv("MAX_PAPERS", "50"))
 SEARCH_DAYS = int(os.getenv("SEARCH_DAYS", "3"))
 
