@@ -83,12 +83,12 @@ LOG_FILE = os.getenv("LOG_FILE", "arxiv_tracker.log")
 LOG_MAX_BYTES = int(os.getenv("LOG_MAX_BYTES", "5242880"))
 LOG_BACKUP_COUNT = int(os.getenv("LOG_BACKUP_COUNT", "5"))
 
-CATEGORIES = [cat.strip() for cat in os.getenv("ARXIV_CATEGORIES", "math.AP").split(",") if cat.strip()]
+CATEGORIES = [cat.strip() for cat in os.getenv("ARXIV_CATEGORIES", "eess.SY,cs.RO,cs.AI,math.OC,cs.LG").split(",") if cat.strip()]
 MAX_PAPERS = int(os.getenv("MAX_PAPERS", "50"))
 SEARCH_DAYS = int(os.getenv("SEARCH_DAYS", "3"))
 
 
-PRIORITY_TOPICS = [
+default_priority_topics = [
     "多智能体博弈与协同控制",
     "分布式控制与估计",
     "容错控制与故障检测",
@@ -96,7 +96,7 @@ PRIORITY_TOPICS = [
     "鲁棒 / 自适应 / 非线性控制",
     "分布式优化与在线学习",
 ]
-SECONDARY_TOPICS = [
+default_secondary_topics = [
     "自动驾驶决策规划与控制",
     "运动规划与轨迹优化",
     "黑盒优化 / 贝叶斯优化 / 无梯度优化",
