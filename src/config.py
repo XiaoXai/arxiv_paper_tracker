@@ -125,7 +125,7 @@ PROVIDER_CONFIG = {
         "base_url": "https://api.deepseek.com",
         "api_key": DEEPSEEK_API_KEY,
         "thinking_support": "model",
-        "default_thinking_model": "deepseek-v4-pro",
+        "default_thinking_model": "deepseek-v4-flash",
         "structured_mode": "json",
         "litellm_provider": "openai",
     },
