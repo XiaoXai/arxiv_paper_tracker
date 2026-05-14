@@ -8,7 +8,7 @@ on:
 jobs:
   analyze-papers:
     runs-on: ubuntu-latest
-    timeout-minutes: 40  # 设置超时时间为40分钟
+    timeout-minutes: 100  # 设置超时时间为40分钟
     
     steps:
     - uses: actions/checkout@v5
