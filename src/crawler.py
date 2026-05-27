@@ -117,10 +117,8 @@ def get_recent_papers(categories, max_results=MAX_PAPERS, target_date: Optional[
             start_time = (today - datetime.timedelta(days=4)).replace(hour=18, minute=0, second=0, microsecond=0)
             end_time = (today - datetime.timedelta(days=1)).replace(hour=18, minute=0, second=0, microsecond=0)
         elif weekday == 2:  # 周三：检索本周一18:00 ~ 本周二18:00（UTC）
-           # start_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
-           # end_time = (today - datetime.timedelta(days=1)).replace(hour=18, minute=0, second=0, microsecond=0)
-            start_time = (today - datetime.timedelta(days=5)).replace(hour=18, minute=0, second=0, microsecond=0)
-            end_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
+            start_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
+            end_time = (today - datetime.timedelta(days=1)).replace(hour=18, minute=0, second=0, microsecond=0)
         elif weekday == 3:  # 周四：检索本周二18:00 ~ 本周三18:00（UTC）
             start_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
             end_time = (today - datetime.timedelta(days=1)).replace(hour=18, minute=0, second=0, microsecond=0)
