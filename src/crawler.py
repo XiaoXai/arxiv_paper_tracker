@@ -47,6 +47,63 @@ def _fetch_arxiv_response(url: str, max_retries: int = 4, timeout: int = 30):
     return None
 
 
+def _fetch_arxiv_response_test(url: str, max_retries: int = 4, timeout: int = 30):
+    backoff = 2
+    last_status = None
+
+    # 准备代理（requests 会自动使用环境变量中的 HTTP_PROXY/HTTPS_PROXY，
+    # 但也可以显式传入，此处保持默认即可，如需强制可配置）
+    proxies = None  # 可改为 os.environ.get('HTTPS_PROXY') 等，但 requests 默认已读取
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.get(url, timeout=timeout, proxies=proxies)
+            if response.status_code == 200:
+                return response
+
+            last_status = response.status_code
+            if response.status_code in {429, 500, 502, 503, 504} and attempt < max_retries:
+                wait_time = backoff + random.uniform(0, 2)
+                # 429 时优先使用 Retry-After 头
+                if response.status_code == 429:
+                    retry_after = response.headers.get('Retry-After')
+                    if retry_after and retry_after.isdigit():
+                        wait_time = int(retry_after) + random.uniform(0, 2)
+                    else:
+                        wait_time = max(wait_time, 10)  # 默认至少等10秒
+                logger.warning(
+                    f"arXiv 暂时不可用，状态码: {response.status_code}，"
+                    f"第 {attempt}/{max_retries} 次重试，等待 {wait_time:.1f} 秒"
+                )
+                time.sleep(wait_time)
+                backoff = max(backoff * 2, wait_time)  # 退避增长
+                continue
+
+            logger.error(f"Failed to fetch data from arXiv, status: {response.status_code}")
+            return None
+
+        except requests.ConnectTimeout:
+            logger.warning(f"连接超时 (第 {attempt}/{max_retries} 次)，等待 {backoff}s 后重试")
+            time.sleep(backoff + random.uniform(0, 2))
+            backoff *= 2
+        except requests.ReadTimeout:
+            logger.warning(f"读取超时 (第 {attempt}/{max_retries} 次)，等待 {backoff}s 后重试")
+            time.sleep(backoff + random.uniform(0, 2))
+            backoff *= 2
+        except requests.ConnectionError as e:
+            logger.warning(f"连接错误: {e} (第 {attempt}/{max_retries} 次重试)")
+            time.sleep(backoff + random.uniform(0, 2))
+            backoff *= 2
+        except requests.RequestException as e:
+            logger.warning(f"请求失败: {e} (第 {attempt}/{max_retries} 次重试)")
+            time.sleep(backoff + random.uniform(0, 2))
+            backoff *= 2
+
+    if last_status is not None:
+        logger.error(f"Failed to fetch data from arXiv, status: {last_status}")
+    return None
+
+
 def parse_date_arg(date_str: str) -> Tuple[datetime.datetime, datetime.datetime]:
     """
     解析日期参数，支持单日期和日期范围
@@ -152,7 +209,7 @@ def get_recent_papers(categories, max_results=MAX_PAPERS, target_date: Optional[
     logger.info(f"最大论文数: {max_results}")
     
     # 发送请求
-    response = _fetch_arxiv_response(url)
+    response = _fetch_arxiv_response_test(url)
     if response is None:
         return []
     
