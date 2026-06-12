@@ -181,8 +181,8 @@ def get_recent_papers(categories, max_results=MAX_PAPERS, target_date: Optional[
             start_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
             end_time = (today - datetime.timedelta(days=1)).replace(hour=18, minute=0, second=0, microsecond=0)
         elif weekday == 4:  # 周五：检索本周三18:00 ~ 本周四18:00（UTC）
-            start_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
-            end_time = (today - datetime.timedelta(days=1)).replace(hour=18, minute=0, second=0, microsecond=0)
+            start_time = (today - datetime.timedelta(days=3)).replace(hour=18, minute=0, second=0, microsecond=0)
+            end_time = (today - datetime.timedelta(days=2)).replace(hour=18, minute=0, second=0, microsecond=0)
         elif weekday == 5 or weekday == 6:  # 周六、周日：跳过检索
             logger.info(f"今天是周{weekday+1}，跳过论文检索")
             return []
