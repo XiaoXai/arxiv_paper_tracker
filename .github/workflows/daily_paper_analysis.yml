@@ -2,7 +2,7 @@ name: Daily Paper Analysis
 
 on:
   schedule:
-    - cron: '30 22 * * *'  # 每天北京时间早上7:30运行 (UTC 23:30)
+    - cron: '00 01 * * *'  # 每天北京时间早上7:30运行 (UTC 23:30)
   workflow_dispatch:  # 允许手动触发
 
 jobs:
